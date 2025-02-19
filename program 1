@@ -19,3 +19,14 @@ int main(int argc,char*argv[])
 	}
 	closedir(dirp);
 }			
+
+
+output:
+
+ ENTER DIRECTORY NAMEchandu
+f4.txt
+demo.txt
+..
+.
+example.txt
+sb.py
