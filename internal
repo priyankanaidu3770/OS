@@ -1,0 +1,78 @@
+#include<stdio.h>
+int main() {
+    int ms, ps, nop, np, rempages, i, j, x, y, offset, pa;
+    int s[10], fno[10][20];  // s holds the number of pages requested by each process, fno holds the page table
+
+    printf("\nEnter ms: ");
+    scanf("%d", &ms);
+    printf("\nEnter ps: ");
+    scanf("%d", &ps);
+    nop = ms / ps;  // Number of page frames available
+    printf("\nEnter no. of pages available in ms: %d", nop);
+
+    printf("\nEnter np: ");
+    scanf("%d", &np);
+
+    rempages = nop;  // Initialize remaining pages
+    for(i = 1; i <= np; i++) {
+        printf("\nEnter no. of pages requested by p[%d]: ", i);
+        scanf("%d", &s[i]);
+
+        if(s[i] > rempages) {
+            printf("\nMemory is full");
+            break;
+        }
+        rempages -= s[i];  // Decrease the number of available pages
+        printf("\nEnter page table for p[%d]: ", i);
+        for(j = 0; j < s[i]; j++) {
+            scanf("%d", &fno[i][j]);  // Store the page table entries
+        }
+    }
+
+    printf("\nEnter Logical Address to find physical address");
+    printf("\nEnter process number, page number, and offset: ");
+    scanf("%d%d%d", &x, &y, &offset);
+
+    // Check for invalid input
+    if(x > np || y >= s[x] || offset >= ps) {
+        printf("\nInvalid process, page number, or offset");
+    } else {
+        // Calculate the physical address
+        pa = fno[x][y] * ps + offset;
+        printf("\nThe physical address is: %d", pa);
+    }
+ // Wait for user input before closing
+    return 0;
+}
+
+
+output:
+Enter ms: 1000
+
+Enter ps: 100
+
+Enter no. of pages available in ms: 10
+Enter np: 3
+
+Enter no. of pages requested by p[1]: 4   
+
+Enter page table for p[1]: 8
+6
+9
+5
+
+Enter no. of pages requested by p[2]: 5
+
+Enter page table for p[2]: 1
+5
+4
+7
+3
+
+Enter no. of pages requested by p[3]: 5
+
+Memory is full
+Enter Logical Address to find physical address
+Enter process number, page number, and offset: 2
+3
+60
