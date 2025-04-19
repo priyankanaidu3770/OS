@@ -1,0 +1,48 @@
+#include <stdio.h>
+int main() {
+    int rs[50],pc,fc,i,j,k,pf=0;
+    int freq[20],frames[20],leastui;
+    
+    printf("enter the no. of page references");
+    scanf("\n%d",&pc);
+    
+    printf("enter the reference string:");
+    for(i=0;i<pc;i++)
+       scanf("\n%d",&rs[i]);
+    
+    printf("enter the available frames:");
+    scanf("\n%d",&fc);
+    for(i=0;i<fc;i++){
+        freq[i]=0;
+        frames[i] = -1;
+    }
+    printf("the page replacement process is:");
+    for(i=0;i<pc;i++){
+        for(j=0;j<fc;j++){
+    if(rs[i]==frames[j]){
+        freq[j]++;
+        break;
+    }
+        }
+        if(j == fc){
+            leastui=0;
+            for(k=1;k<fc;k++)
+            if(freq[k] < freq[leastui])
+            leastui=k;
+        }
+        
+        frames[leastui]=rs[i];
+        freq[leastui]=1;
+        pf++;
+    }
+    for(j=0;j<fc;j++)
+    printf("\t%d",&frames[j]);
+    
+    if(j==fc)
+        printf("\tPF no. %d" ,pf);
+        printf("\n");
+
+    printf("\ntotal number of pf: %d" ,pf);
+     
+    return 0; 
+}
